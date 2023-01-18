@@ -1,0 +1,1 @@
+exec("a=input()\nif'Simon says'in a: print(a[10:]);\n"*int(input()))

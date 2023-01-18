@@ -1,0 +1,5 @@
+N = int(input())
+l = list(map(int, input().split()))
+M = max(l)
+l = list(map(lambda i:i/M*100, l))
+print(sum(l) / len(l))
