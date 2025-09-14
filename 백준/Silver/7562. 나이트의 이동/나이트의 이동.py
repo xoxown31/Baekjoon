@@ -34,6 +34,7 @@ for _ in range(T):
         
         if ui == ei and uj == ej:
             res = min(uw, res)
+            break
 
         for di, dj in dij:
             vi, vj, vw = ui+di, uj+dj, uw+1
