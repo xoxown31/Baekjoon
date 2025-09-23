@@ -11,9 +11,15 @@ dij = [
     (-1,  0)
 ]
 
+def f(x):
+    return 1 << (ord(x) - ord('A'))
+
+def g(a, b):
+    return a & b > 0
+
 res = -1
 
-stack = [(0, 0, 1, {board[0][0]})]
+stack = [(0, 0, 1, f(board[0][0]))]
 
 while stack:
 
@@ -25,8 +31,8 @@ while stack:
 
         vi, vj, vw = ui + di, uj + dj, uw + 1
         
-        if not isin(vi,vj) or board[vi][vj] in us: continue
+        if not isin(vi,vj) or g(us, f(board[vi][vj])): continue
 
-        stack.append((vi, vj, vw, us | {board[vi][vj]}))
+        stack.append((vi, vj, vw, us | f(board[vi][vj])))
     
 print(res)
