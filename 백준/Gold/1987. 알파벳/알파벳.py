@@ -1,26 +1,32 @@
-r, c = map(int, input().split())
-graph = [list(input()) for _ in range(r)]
-visited = set()
-dx, dy = (-1, 1, 0, 0), (0, 0, -1, 1)
-ans = 0
+R, C = map(int, input().split())
 
+board = [[x for x in input().strip()] for _ in range(R)]
 
-def dfs(x, y, cnt):
-    global ans
+isin = lambda i,j : 0 <= i < R and 0 <= j < C
 
-    ans = max(ans, cnt)
-    visited.add(graph[x][y])
+dij = [
+    ( 0,  1),
+    ( 0, -1),
+    ( 1,  0),
+    (-1,  0)
+]
 
-    for i in range(4):
-        nx, ny = x + dx[i], y + dy[i]
+res = -1
 
-        if 0 <= nx < r and 0 <= ny < c:
-            if graph[nx][ny] not in visited:
-                dfs(nx, ny, cnt + 1)
+stack = [(0, 0, 1, {board[0][0]})]
 
-    visited.remove(graph[x][y])
+while stack:
 
+    ui, uj, uw, us = stack.pop()
 
-dfs(0, 0, 1)
+    res = max(uw, res)
 
-print(ans)
+    for di, dj in dij:
+
+        vi, vj, vw = ui + di, uj + dj, uw + 1
+        
+        if not isin(vi,vj) or board[vi][vj] in us: continue
+
+        stack.append((vi, vj, vw, us | {board[vi][vj]}))
+    
+print(res)
