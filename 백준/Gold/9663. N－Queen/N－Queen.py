@@ -1,26 +1,24 @@
 N = int(input())
 
-count = 0
-col = [False] * N
-inc = [False] * (2*N-1)
-dec = [False] * (2*N-1)
+dp1 = [False] * N
+dp2 = [False] * (2*N + 1)
+dp3 = [False] * (2*N + 1)
 
-def dfs(row):
-    global count
-    if row == N:
-        count += 1
+res = 0
+
+def f(x):
+    global res
+    if x == N:
+        res = res + 1
         return
-
+    
     for i in range(N):
-        if col[i] or inc[row + i] or dec[row - i]:
+        if dp1[i] or dp2[x+i] or dp3[x-i]:
             continue
 
-        col[i] = inc[row + i] = dec[row - i] = True
+        dp1[i] = dp2[x+i] = dp3[x-i] = True
+        f(x+1)
+        dp1[i] = dp2[x+i] = dp3[x-i] = False
 
-        dfs(row+1)
-
-        col[i] = inc[row + i] = dec[row - i] = False
-
-dfs(0)
-
-print(count)
+f(0)
+print(res)
